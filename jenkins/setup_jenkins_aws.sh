@@ -52,6 +52,7 @@ java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin Git
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin workflow-aggregator
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-multibranch-defaults
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin terraform
+java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-aws
 service jenkins restart
 sleep 20
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job backend < /tmp/backend.xml 
