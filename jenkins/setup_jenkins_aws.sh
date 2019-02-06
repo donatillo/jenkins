@@ -34,6 +34,11 @@ usermod -aG docker jenkins
 service docker start
 chkconfig docker on
 
+echo "Install terraform"
+wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+unzip terraform_0.11.11_linux_amd64.zip
+mv terraform /usr/bin/
+
 echo "Configure Jenkins"
 echo 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"' >> /etc/sysconfig/jenkins
 
@@ -51,7 +56,7 @@ service jenkins restart
 sleep 20
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job backend < /tmp/backend.xml 
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job frontend < /tmp/frontend.xml 
-java -jar jenkins-cli.jar -s http://localhost:8080/ create-credentials-by-xml "SystemCredentialsProvider::SystemContextResolver::jenkins" "(global)" < /temp/awscred.xml
+java -jar jenkins-cli.jar -s http://localhost:8080/ create-credentials-by-xml "SystemCredentialsProvider::SystemContextResolver::jenkins" "(global)" < /tmp/awscred.xml
 sleep 5
 
 echo "Configure jenkins security"
