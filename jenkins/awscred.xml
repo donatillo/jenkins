@@ -1,0 +1,7 @@
+<com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl plugin="credentials@2.1.18">
+  <scope>GLOBAL</scope>
+  <id>aws</id>
+  <description></description>
+  <username>MY_KEY_ID</username>
+  <password>MY_SECRET_KEY</password>
+</com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
