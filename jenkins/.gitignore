@@ -1,0 +1,6 @@
+*.tfstate
+*.tfstate.backup
+.terraform
+*.lock.*
+public_ip.txt
+jenkins_aws.*
