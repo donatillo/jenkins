@@ -46,6 +46,7 @@ wget http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin Git
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin workflow-aggregator
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-multibranch-defaults
+java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin terraform
 service jenkins restart
 sleep 20
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job backend < /tmp/backend.xml 
@@ -55,5 +56,8 @@ sleep 5
 echo "Configure jenkins security"
 service jenkins stop
 echo 'JENKINS_ARGS="--argumentsRealm.passwd.admin=JENKINS_PASSWORD --argumentsRealm.roles.admin=admin"' >> /etc/sysconfig/jenkins
+echo 'AWS_DEFAULT_REGION=us-east-1' >> /etc/sysconfig/jenkins
+echo 'AWS_ACCESS_KEY_ID="MY_KEY_ID"' >> /etc/sysconfig/jenkins
+echo 'AWS_SECRET_ACCESS_KEY="MY_SECRET_KEY"' >> /etc/sysconfig/jenkins
 cp /tmp/config.xml /var/lib/jenkins/
 service jenkins start
