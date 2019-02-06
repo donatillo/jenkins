@@ -6,5 +6,5 @@ if [ "$#" -ne 2 ]; then
 fi
 
 touch jenkins_aws.pub jenkins_aws.pem
-terraform destroy -var "access_key=$1" -var "secret_key=$2"
+terraform destroy -var "access_key=$1" -var "secret_key=$2" -var "jenkins_password=x"
 rm -f jenkins_aws.pub jenkins_aws.pem
