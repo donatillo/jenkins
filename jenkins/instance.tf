@@ -73,6 +73,7 @@ resource "aws_instance" "jenkins" {
             "sudo sed -i 's,GIT_REPO,${var.git_repo_frontend},g' /tmp/frontend.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_backend},g' /tmp/backend.xml",
             "sudo sed -i 's,JENKINS_PASSWORD,${var.jenkins_password},g' /tmp/setup_jenkins_aws.sh",
+            "sudo sed -i 's,MY_DOMAIN,${var.domain},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_KEY_ID,${var.access_key},g' /tmp/awscred.xml",
             "sudo sed -i 's,MY_SECRET_KEY,${var.secret_key},g' /tmp/awscred.xml",
             "sudo /tmp/setup_jenkins_aws.sh",
