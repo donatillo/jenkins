@@ -28,7 +28,7 @@ Create Github repositories:
 
 - Edit the file `terraform/variables.tf` and change the following keys:
   - `domain`: with the domain name you created
-  - `git_repo_frontend` and `git_repo_frontend`: the name of the forked repository.
+  - `git_repo_frontend` and `git_repo_frontend`: the name of the Github repository created in the previous step.
 
 # Create bucket for the backend in S3
 
