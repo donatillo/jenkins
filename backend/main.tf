@@ -25,17 +25,35 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
-data "template_file" "policy" {
+data "template_file" "policy_devl" {
 	template 	= "${file("policy.json")}"
 	vars {
 		user    = "${data.aws_caller_identity.current.arn}"
+        env     = "devl"
 	}
 }
 
-resource "aws_s3_bucket" "frontend" {
-    bucket      = "give-and-take-terraform"
+resource "aws_s3_bucket" "backend_devl" {
+    bucket      = "give-and-take-terraform-devl"
 	acl         = "private"
-    policy      = "${data.template_file.policy.rendered}"
+    policy      = "${data.template_file.policy_devl.rendered}"
+	versioning {
+		enabled = true
+	}
+}
+
+data "template_file" "policy_master" {
+	template 	= "${file("policy.json")}"
+	vars {
+		user    = "${data.aws_caller_identity.current.arn}"
+        env     = "master"
+	}
+}
+
+resource "aws_s3_bucket" "backend_master" {
+    bucket      = "give-and-take-terraform-master"
+	acl         = "private"
+    policy      = "${data.template_file.policy_master.rendered}"
 	versioning {
 		enabled = true
 	}
