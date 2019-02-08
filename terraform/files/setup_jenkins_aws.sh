@@ -50,6 +50,7 @@ sleep 20
 echo "Install plugins & configure"
 wget http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin Git
+java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin github
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin workflow-aggregator
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-multibranch-defaults
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin terraform
