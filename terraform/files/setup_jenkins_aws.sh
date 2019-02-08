@@ -40,7 +40,8 @@ unzip terraform_0.11.11_linux_amd64.zip
 mv terraform /usr/bin/
 
 echo "Configure Jenkins"
-echo 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Dwebsite.domain=MY_DOMAIN"' >> /etc/sysconfig/jenkins
+echo 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"' >> /etc/sysconfig/jenkins
+echo 'export MY_DOMAIN=MY_AWS_DOMAIN' >> /etc/sysconfig/jenkins
 
 echo "Start Jenkins"
 service jenkins start

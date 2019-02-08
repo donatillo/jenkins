@@ -45,23 +45,34 @@ resource "aws_instance" "jenkins" {
         "${aws_security_group.allow_outbound.name}",
     ]
 
+    provisioner "local-exec" {
+        command    	= "./create_key.sh"
+    }
+
+    connection {
+        type    	= "ssh"
+        user    	= "ec2-user"
+        timeout 	= "30s"
+        private_key = "${file("jenkins_aws.pem")}"
+    }
+
     provisioner "file" {
-        source      = "setup_jenkins_aws.sh"
+        source      = "files/setup_jenkins_aws.sh"
         destination = "/tmp/setup_jenkins_aws.sh"
     }
 
     provisioner "file" {
-        source      = "job.xml"
+        source      = "files/job.xml"
         destination = "/tmp/job.xml"
     }
 
     provisioner "file" {
-        source      = "config.xml"
+        source      = "files/config.xml"
         destination = "/tmp/config.xml"
     }
 
     provisioner "file" {
-        source      = "awscred.xml"
+        source      = "files/awscred.xml"
         destination = "/tmp/awscred.xml"
     }
 
@@ -73,19 +84,13 @@ resource "aws_instance" "jenkins" {
             "sudo sed -i 's,GIT_REPO,${var.git_repo_frontend},g' /tmp/frontend.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_backend},g' /tmp/backend.xml",
             "sudo sed -i 's,JENKINS_PASSWORD,${var.jenkins_password},g' /tmp/setup_jenkins_aws.sh",
-            "sudo sed -i 's,MY_DOMAIN,${var.domain},g' /tmp/setup_jenkins_aws.sh",
+            "sudo sed -i 's,MY_AWS_DOMAIN,${var.domain},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_KEY_ID,${var.access_key},g' /tmp/awscred.xml",
             "sudo sed -i 's,MY_SECRET_KEY,${var.secret_key},g' /tmp/awscred.xml",
             "sudo /tmp/setup_jenkins_aws.sh",
         ]
     }
 
-    connection {
-        type    	= "ssh"
-        user    	= "ec2-user"
-        timeout 	= "30s"
-        private_key = "${file("jenkins_aws.pem")}"
-    }
 }
 
 # 
@@ -99,6 +104,12 @@ resource "aws_eip" "jenkins_eip" {
         command    	= "echo ${self.public_ip} > public_ip.txt"
         on_failure 	= "continue"
     }
+
+    provisioner "local-exec" {
+        command    	= "echo 'Connect to ssh with: ssh -i jenkins_aws.pem ec2-user@`cat public_ip.txt`' && echo 'Jenkins available at http://`cat public_ip.txt`:8080'"
+        on_failure 	= "continue"
+    }
+
 }
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
