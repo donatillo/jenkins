@@ -10,19 +10,19 @@
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::give-and-take-terrafor-${env}/jenkins.state",
+      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}/jenkins.state",
       "Principal": { "AWS": "${user}" }
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::give-and-take-terrafor-${env}/frontend.state",
+      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}/frontend.state",
       "Principal": { "AWS": "${user}" }
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::give-and-take-terrafor-${env}/backend.state",
+      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}/backend.state",
       "Principal": { "AWS": "${user}" }
     }
   ]
