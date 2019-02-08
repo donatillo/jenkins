@@ -45,9 +45,9 @@ resource "aws_instance" "jenkins" {
         "${aws_security_group.allow_outbound.name}",
     ]
 
-    provisioner "local-exec" {
-        command    	= "./create_key.sh"
-    }
+    // provisioner "local-exec" {
+    //     command    	= "./create_key.sh"
+    // }
 
     connection {
         type    	= "ssh"

@@ -12,7 +12,7 @@ Steps to build for your environment:
      "Create access key"
     - Click on "Show" and take note of the "Access key ID" and "Secret access key". This is the only
      oportunty you will have to see this information.
-- Fork the [main Github repository](https://github.com/andrenho/giveandtake)
+- Fork the [Github repositories](https://github.com/andrenho/giveandtake)
 - Clone the repository
 
 # Configuration
