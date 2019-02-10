@@ -8,7 +8,7 @@ variable "region" {
 
 variable "jenkins_password" {}
 
-variable "appname" {}
+variable "basename" {}
 
 variable "domain" {}
 

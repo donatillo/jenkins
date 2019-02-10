@@ -4,4 +4,4 @@
 *.lock.*
 public_ip.txt
 jenkins_aws.*
-secret.auto.tfvars
+secrets.auto.tfvars
