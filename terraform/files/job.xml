@@ -1,7 +1,7 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.20">
   <actions/>
-  <description></description>
+  <description>MY_APP_NAME</description>
   <properties>
     <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.3.4.1">
       <dockerLabel></dockerLabel>

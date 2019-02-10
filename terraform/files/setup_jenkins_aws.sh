@@ -42,6 +42,7 @@ mv terraform /usr/bin/
 echo "Configure Jenkins"
 echo 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"' >> /etc/sysconfig/jenkins
 echo 'export MY_DOMAIN=MY_AWS_DOMAIN' >> /etc/sysconfig/jenkins
+echo 'export MY_APP=MY_APP_NAME' >> /etc/sysconfig/jenkins
 
 echo "Start Jenkins"
 service jenkins start
@@ -56,7 +57,6 @@ java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-mult
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin terraform
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-aws
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin github-integration
-java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin amazon-ecr
 service jenkins restart
 sleep 20
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job backend < /tmp/backend.xml 
@@ -68,4 +68,5 @@ echo "Configure jenkins security"
 service jenkins stop
 echo 'JENKINS_ARGS="--argumentsRealm.passwd.admin=JENKINS_PASSWORD --argumentsRealm.roles.admin=admin"' >> /etc/sysconfig/jenkins
 cp /tmp/config.xml /var/lib/jenkins/
+rm /tmp/awscred.xml /tmp/config.xml /tmp/job.xml /tmp/setup_jenkins_aws.sh
 service jenkins start
