@@ -4,6 +4,7 @@
 
 variable "access_key" {}
 variable "secret_key" {}
+variable "appname" {}
 variable "region" {
     default = "us-east-1"
 }
@@ -30,11 +31,12 @@ data "template_file" "policy_devl" {
 	vars {
 		user    = "${data.aws_caller_identity.current.arn}"
         env     = "devl"
+        appname = "${var.appname}"
 	}
 }
 
 resource "aws_s3_bucket" "backend_devl" {
-    bucket      = "give-and-take-terraform-devl"
+    bucket      = "${var.appname}-terraform-devl"
 	acl         = "private"
     policy      = "${data.template_file.policy_devl.rendered}"
 	versioning {
@@ -47,11 +49,12 @@ data "template_file" "policy_master" {
 	vars {
 		user    = "${data.aws_caller_identity.current.arn}"
         env     = "master"
+        appname = "${var.appname}"
 	}
 }
 
 resource "aws_s3_bucket" "backend_master" {
-    bucket      = "give-and-take-terraform-master"
+    bucket      = "${var.appname}-terraform-master"
 	acl         = "private"
     policy      = "${data.template_file.policy_master.rendered}"
 	versioning {

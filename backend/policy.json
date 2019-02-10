@@ -4,25 +4,25 @@
     {
       "Effect": "Allow",
       "Action": "s3:ListBucket",
-      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}",
+      "Resource": "arn:aws:s3:::${appname}-terraform-${env}",
       "Principal": { "AWS": "${user}" }
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}/jenkins.state",
+      "Resource": "arn:aws:s3:::${appname}-terraform-${env}/jenkins.state",
       "Principal": { "AWS": "${user}" }
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}/frontend.state",
+      "Resource": "arn:aws:s3:::${appname}-terraform-${env}/frontend.state",
       "Principal": { "AWS": "${user}" }
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::give-and-take-terraform-${env}/backend.state",
+      "Resource": "arn:aws:s3:::${appname}-terraform-${env}/backend.state",
       "Principal": { "AWS": "${user}" }
     }
   ]
