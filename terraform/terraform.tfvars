@@ -1,2 +1,2 @@
-git_repo_frontend = "https://github.com/give-and-take/frontend.git"
-git_repo_backend  = "https://github.com/give-and-take/backend.git"
+git_repo_frontend = "https://github.com/give-and-take/frontend-aws-react.git"
+git_repo_backend  = "https://github.com/give-and-take/backend-aws-java.git"
