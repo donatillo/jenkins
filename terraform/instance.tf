@@ -27,6 +27,27 @@ data "aws_ami" "amazon_linux" {
 }
 
 # 
+# network interface
+#
+
+resource "aws_network_interface" "jenkins" {
+    subnet_id       = "${aws_subnet.public.id}"
+    private_ips      = ["10.0.1.50"]
+    
+    security_groups = [
+        "${aws_security_group.allow_ssh.id}",
+        "${aws_security_group.allow_8080.id}",
+        "${aws_security_group.allow_outbound.id}",
+    ]
+
+    tags {
+        Name        = "jenkins-network-if"
+        Creator     = "jenkins"
+        Description = "Jenkins instance network interface"
+    }
+}
+
+# 
 # EC2 jenkins instance
 #
 
@@ -35,17 +56,14 @@ resource "aws_instance" "jenkins" {
     instance_type   = "t2.micro"
     key_name        = "${aws_key_pair.jenkins_key.key_name}"
 
-    vpc_id          = "${aws_vpc.jenkins.id}"
-
-    security_groups = [
-        "${aws_security_group.allow_ssh.name}",
-        "${aws_security_group.allow_8080.name}",
-        "${aws_security_group.allow_outbound.name}",
-    ]
-
     // provisioner "local-exec" {
     //     command    	= "./create_key.sh"
     // }
+
+    network_interface {
+        network_interface_id = "${aws_network_interface.jenkins.id}"
+        device_index         = 0
+    }
 
     connection {
         type    	= "ssh"
@@ -82,8 +100,8 @@ resource "aws_instance" "jenkins" {
             "sudo sed -i 's,GIT_REPO,${var.git_repo_frontend},g' /tmp/frontend.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_backend},g' /tmp/backend.xml",
             "sudo sed -i 's,JENKINS_PASSWORD,${var.jenkins_password},g' /tmp/setup_jenkins_aws.sh",
-            "sudo sed -i 's,MY_APP_NAME,${var.appname},g' /tmp/setup_jenkins_aws.sh",
-            "sudo sed -i 's,MY_APP_NAME,${var.appname},g' /tmp/job.xml",
+            "sudo sed -i 's,MY_APP_NAME,${var.basename},g' /tmp/setup_jenkins_aws.sh",
+            "sudo sed -i 's,MY_APP_NAME,${var.basename},g' /tmp/job.xml",
             "sudo sed -i 's,MY_AWS_DOMAIN,${var.domain},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_KEY_ID,${var.access_key},g' /tmp/awscred.xml",
             "sudo sed -i 's,MY_SECRET_KEY,${var.secret_key},g' /tmp/awscred.xml",
@@ -104,8 +122,7 @@ resource "aws_instance" "jenkins" {
 
 resource "aws_eip" "jenkins_eip" {
     instance 		= "${aws_instance.jenkins.id}"
-
-    vpc_id          = "${aws_vpc.jenkins.id}"
+    vpc             = true
 
     provisioner "local-exec" {
         command    	= "echo ${self.public_ip} > public_ip.txt"

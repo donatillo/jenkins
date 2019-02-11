@@ -13,13 +13,14 @@ resource "aws_vpc" "jenkins" {
 # subnet (public)
 
 resource "aws_subnet" "public" {
-    vpc_id      = "${aws_vpc.jenkins.id}"
-    cidr_block  = "10.0.1.0/24"
+    vpc_id            = "${aws_vpc.jenkins.id}"
+    cidr_block        = "10.0.1.0/24"
+    availability_zone = "us-east-1a"
 
     tags {
-        Name        = "jenkins-subnet-public"
-        Creator     = "jenkins"
-        Description = "Main public subnet"
+        Name          = "jenkins-subnet-public"
+        Creator       = "jenkins"
+        Description   = "Main public subnet"
     }
 }
 
