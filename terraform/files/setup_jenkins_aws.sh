@@ -43,6 +43,7 @@ echo "Configure Jenkins"
 echo 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"' >> /etc/sysconfig/jenkins
 echo 'export MY_DOMAIN=MY_AWS_DOMAIN' >> /etc/sysconfig/jenkins
 echo 'export MY_APP=MY_APP_NAME' >> /etc/sysconfig/jenkins
+echo 'export BASENAME=MY_BASENAME' >> /etc/sysconfig/jenkins
 
 echo "Start Jenkins"
 service jenkins start
