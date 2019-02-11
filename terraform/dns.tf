@@ -1,10 +1,10 @@
-resource "aws_route53_zone" "primary" {
+data "aws_route53_zone" "primary" {
     name             = "${var.domain}"
-    // lifecycle { prevent_destroy = true }
+    private_zone     = false
 }
 
 resource "aws_route53_record" "jenkins-dns" {
-    zone_id         = "${aws_route53_zone.primary.zone_id}"
+    zone_id         = "${data.aws_route53_zone.primary.zone_id}"
     name            = "jenkins.${var.domain}"
     type            = "A"
     ttl             = "300"

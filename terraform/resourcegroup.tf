@@ -1,5 +1,6 @@
 resource "aws_resourcegroups_group" "resg-jenkins" {
     name = "jenkins"
+    description = "Resources built for the jenkins instance."
     
     resource_query {
     query = <<JSON

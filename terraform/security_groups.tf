@@ -3,17 +3,27 @@ resource "aws_security_group" "allow_ssh" {
     name            = "allow_ssh"
     description     = "Allow SSH inbound"
     
+    vpc_id          = "${aws_vpc.jenkins.id}"
+
     ingress {
         from_port   = 22
         to_port     = 22
         protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+    tags {
+        Name        = "jenkins-allow_ssh"
+        Creator     = "jenkins"
+        Description = "Allow SSH inbound"
+    }
 }
 
 resource "aws_security_group" "allow_8080" {
     name            = "allow_8080"
     description     = "Allow 8080 inbound"
+
+    vpc_id          = "${aws_vpc.jenkins.id}"
     
     ingress {
         from_port   = 8080
@@ -21,17 +31,31 @@ resource "aws_security_group" "allow_8080" {
         protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+    tags {
+        Name        = "jenkins-allow_8080"
+        Creator     = "jenkins"
+        Description = "Allow port 8080 inbound"
+    }
 }
 
 resource "aws_security_group" "allow_outbound" {
     name            = "allow_all_outbound"
     description     = "Allow all traffic outbound"
+
+    vpc_id          = "${aws_vpc.jenkins.id}"
     
     egress {
         from_port   = 0
         to_port     = 0
         protocol    = "-1"
         cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    tags {
+        Name        = "jenkins-allow_outbound"
+        Creator     = "jenkins"
+        Description = "Allow all traffic outbound"
     }
 }
 

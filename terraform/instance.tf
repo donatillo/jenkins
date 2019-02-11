@@ -35,9 +35,7 @@ resource "aws_instance" "jenkins" {
     instance_type   = "t2.micro"
     key_name        = "${aws_key_pair.jenkins_key.key_name}"
 
-    tags {
-        Name        = "jenkins"
-    }
+    vpc_id          = "${aws_vpc.jenkins.id}"
 
     security_groups = [
         "${aws_security_group.allow_ssh.name}",
@@ -93,6 +91,11 @@ resource "aws_instance" "jenkins" {
         ]
     }
 
+    tags {
+        Name        = "jenkins"
+        Creator     = "jenkins"
+        Description = "Main jenkins instance"
+    }
 }
 
 # 
@@ -101,6 +104,8 @@ resource "aws_instance" "jenkins" {
 
 resource "aws_eip" "jenkins_eip" {
     instance 		= "${aws_instance.jenkins.id}"
+
+    vpc_id          = "${aws_vpc.jenkins.id}"
 
     provisioner "local-exec" {
         command    	= "echo ${self.public_ip} > public_ip.txt"
@@ -112,6 +117,11 @@ resource "aws_eip" "jenkins_eip" {
         on_failure 	= "continue"
     }
 
+    tags {
+        Name        = "jenkins-eip"
+        Creator     = "jenkins"
+        Description = "Main Jenkins instance elastic IP"
+    }
 }
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf

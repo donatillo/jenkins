@@ -1,6 +1,6 @@
 # VPC
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "jenkins" {
     cidr_block  = "10.0.0.0/16"
     
     tags {
@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
 # subnet (public)
 
 resource "aws_subnet" "public" {
-    vpc_id      = "${aws_vpc.main.id}"
+    vpc_id      = "${aws_vpc.jenkins.id}"
     cidr_block  = "10.0.1.0/24"
 
     tags {
@@ -23,23 +23,10 @@ resource "aws_subnet" "public" {
     }
 }
 
-# subnet (private)
-
-resource "aws_subnet" "private" {
-    vpc_id      = "${aws_vpc.main.id}"
-    cidr_block  = "10.0.0.0/24"
-
-    tags {
-        Name        = "jenkins-subnet-private"
-        Creator     = "jenkins"
-        Description = "Main private subnet"
-    }
-}
-
 # internet gateway
 
 resource "aws_internet_gateway" "ig_public_subnet" {
-    vpc_id      = "${aws_vpc.main.id}"
+    vpc_id      = "${aws_vpc.jenkins.id}"
 
     tags {
         Name        = "jenkins-ig"
@@ -51,7 +38,7 @@ resource "aws_internet_gateway" "ig_public_subnet" {
 # route table (associated to the internet gateway and public subnet)
 
 resource "aws_route_table" "rt" {
-    vpc_id      = "${aws_vpc.main.id}"
+    vpc_id      = "${aws_vpc.jenkins.id}"
 
     route {
         cidr_block = "0.0.0.0/0"
