@@ -1,7 +1,6 @@
 resource "null_resource" "scripts" {
     triggers = {
         instance = "${aws_instance.jenkins.id}"
-        eip      = "${aws_eip.jenkins_eip.id}"
     }
 
     depends_on = ["aws_instance.jenkins", "aws_eip.jenkins_eip"]
