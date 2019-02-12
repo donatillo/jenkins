@@ -7,7 +7,7 @@ echo "Update packages"
 yum update -y
 
 echo "Add swap"
-dd if=/dev/zero of=/swapfile bs=1G count=4
+dd if=/dev/zero of=/swapfile bs=1M count=1024
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
