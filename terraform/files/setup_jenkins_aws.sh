@@ -59,6 +59,8 @@ java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin terraform
 java -jar jenkins-cli.jar -s http://localhost:8080/ install-plugin pipeline-aws
 service jenkins restart
 sleep 20
+java -jar jenkins-cli.jar -s http://localhost:8080/ create-job init < /tmp/init.xml 
+java -jar jenkins-cli.jar -s http://localhost:8080/ create-job ssl < /tmp/ssl.xml 
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job backend < /tmp/backend.xml 
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-job frontend < /tmp/frontend.xml 
 java -jar jenkins-cli.jar -s http://localhost:8080/ create-credentials-by-xml "SystemCredentialsProvider::SystemContextResolver::jenkins" "(global)" < /tmp/awscred.xml
