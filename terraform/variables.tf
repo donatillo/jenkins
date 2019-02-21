@@ -3,6 +3,7 @@ variable "secret_key"        {}
 variable "jenkins_password"  {}
 variable "basename"          {}
 variable "domain"            {}
+variable "main_domain"       {}
 variable "git_repo_infra"    {}
 variable "git_repo_frontend" {}
 variable "git_repo_backend"  {}

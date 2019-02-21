@@ -7,3 +7,5 @@ fi
 
 rm -rf .terraform
 terraform init -backend-config="bucket=$1-terraform"
+
+touch jenkins_aws.pem jenkins_aws.pub
