@@ -68,7 +68,7 @@ resource "aws_instance" "jenkins" {
     // }
 
     security_groups = [
-        "${aws_security_group.allow_ssh.id}",
+        "${aws_security_group.allow_ssh.name}",
         "${aws_security_group.allow_443.id}",
         "${aws_security_group.allow_8080.id}",
         "${aws_security_group.allow_outbound.id}",
