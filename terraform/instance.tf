@@ -87,7 +87,6 @@ resource "aws_instance" "jenkins" {
 
 resource "aws_eip" "jenkins_eip" {
     instance 		= "${aws_instance.jenkins.id}"
-    vpc             = true
 
     provisioner "local-exec" {
         command    	= "echo ${self.public_ip} > public_ip.txt"
