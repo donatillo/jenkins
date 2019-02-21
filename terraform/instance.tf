@@ -30,12 +30,13 @@ data "aws_ami" "amazon_linux" {
 # network interface
 #
 
+/*
 resource "aws_network_interface" "jenkins" {
     subnet_id       = "${aws_subnet.public.id}"
-    private_ips      = ["10.0.1.50"]
     
     security_groups = [
         "${aws_security_group.allow_ssh.id}",
+        "${aws_security_group.allow_443.id}",
         "${aws_security_group.allow_8080.id}",
         "${aws_security_group.allow_outbound.id}",
     ]
@@ -46,6 +47,7 @@ resource "aws_network_interface" "jenkins" {
         Description = "Jenkins instance network interface"
     }
 }
+*/
 
 # 
 # EC2 jenkins instance
@@ -60,10 +62,17 @@ resource "aws_instance" "jenkins" {
     //     command    	= "./create_key.sh"
     // }
 
-    network_interface {
-        network_interface_id = "${aws_network_interface.jenkins.id}"
-        device_index         = 0
-    }
+    // network_interface {
+    //    network_interface_id = "${aws_network_interface.jenkins.id}"
+    //    device_index         = 0
+    // }
+
+    security_groups = [
+        "${aws_security_group.allow_ssh.id}",
+        "${aws_security_group.allow_443.id}",
+        "${aws_security_group.allow_8080.id}",
+        "${aws_security_group.allow_outbound.id}",
+    ]
 
     tags {
         Name        = "jenkins"
