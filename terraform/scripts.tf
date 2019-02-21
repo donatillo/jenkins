@@ -37,7 +37,6 @@ resource "null_resource" "scripts" {
         inline 		= [
             "sudo chmod +x /tmp/setup_jenkins_aws.sh",
             "sudo cp /tmp/job.xml /tmp/infra.xml",
-            "sudo cp /tmp/job.xml /tmp/ssl.xml",
             "sudo cp /tmp/job.xml /tmp/frontend.xml",
             "sudo cp /tmp/job.xml /tmp/backend.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_infra},g' /tmp/infra.xml",
