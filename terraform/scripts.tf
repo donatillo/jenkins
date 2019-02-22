@@ -46,6 +46,7 @@ resource "null_resource" "scripts" {
             "sudo sed -i 's,MY_APP_NAME,${var.basename},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_APP_NAME,${var.basename},g' /tmp/job.xml",
             "sudo sed -i 's,MY_AWS_DOMAIN,${var.domain},g' /tmp/setup_jenkins_aws.sh",
+            "sudo sed -i 's,MY_MAIN_AWS_DOMAIN,${var.main_domain},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_BASENAME,${var.basename},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_KEY_ID,${var.access_key},g' /tmp/awscred.xml",
             "sudo sed -i 's,MY_SECRET_KEY,${var.secret_key},g' /tmp/awscred.xml",
