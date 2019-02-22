@@ -7,7 +7,6 @@ variable "main_domain"          {}
 variable "git_repo_infra"       {}
 variable "git_repo_frontend"    {}
 variable "git_repo_backend"     {}
-variable "git_repo_certificate" {}
 
 provider "aws" {
     access_key      = "${var.access_key}"
