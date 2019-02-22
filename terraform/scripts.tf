@@ -37,11 +37,13 @@ resource "null_resource" "scripts" {
         inline 		= [
             "sudo chmod +x /tmp/setup_jenkins_aws.sh",
             "sudo cp /tmp/job.xml /tmp/infra.xml",
+            "sudo cp /tmp/job.xml /tmp/certificate.xml",
             "sudo cp /tmp/job.xml /tmp/frontend.xml",
             "sudo cp /tmp/job.xml /tmp/backend.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_infra},g' /tmp/infra.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_frontend},g' /tmp/frontend.xml",
             "sudo sed -i 's,GIT_REPO,${var.git_repo_backend},g' /tmp/backend.xml",
+            "sudo sed -i 's,GIT_REPO,${var.git_repo_certificate},g' /tmp/certificate.xml",
             "sudo sed -i 's,JENKINS_PASSWORD,${var.jenkins_password},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_APP_NAME,${var.basename},g' /tmp/setup_jenkins_aws.sh",
             "sudo sed -i 's,MY_APP_NAME,${var.basename},g' /tmp/job.xml",
